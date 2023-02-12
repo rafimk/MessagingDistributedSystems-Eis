@@ -1,0 +1,21 @@
+version: '3'
+
+services:
+  pulsar:
+    image: apachepulsar/pulsar
+    container_name: pulsar
+    restart: unless-stopped
+    networks:
+      - messaging
+    ports:
+      - 6650:6650
+      - 8080:8080
+    command: bin/pulsar standalone
+
+networks:
+  messaging:
+    name: messaging
+
+volumes:
+  redis:
+    driver: local  

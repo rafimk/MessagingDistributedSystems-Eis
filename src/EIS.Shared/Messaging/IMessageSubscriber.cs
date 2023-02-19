@@ -1,6 +1,8 @@
-﻿namespace EIS.Shared.Messaging;
+﻿using MediatR;
+
+namespace EIS.Shared.Messaging;
 
 public interface IMessageSubscriber
 {
-    Task SubscribeAsync<T>(string topic, Action<MessageEnvelope<T>> handler) where T : class, IMessage;
+    Task SubscribeAsync<T>(string topic, Action<MessageEnvelope<T>> handler) where T : class, INotification;
 }

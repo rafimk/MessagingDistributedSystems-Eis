@@ -19,4 +19,5 @@ internal sealed class SystemTextJsonSerializer : ISerializer
     public byte[] SerializeBytes<T>(T value) where T : class => JsonSerializer.SerializeToUtf8Bytes(value, Options);
 
     public T? DeserializeBytes<T>(byte[] value) where T : class => JsonSerializer.Deserialize<T>(value, Options);
+    public object Deserialize(string value, Type type) => JsonSerializer.Deserialize(value, type, Options);
 }

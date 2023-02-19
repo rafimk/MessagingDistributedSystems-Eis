@@ -7,9 +7,9 @@ using DotPulsar.Extensions;
 using EIS.Shared.Messaging;
 using EIS.Shared.Observability;
 using EIS.Shared.Serialization;
+using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
-using IMessage = EIS.Shared.Messaging.IMessage;
 
 namespace EIS.Shared.Pulsar;
 
@@ -33,7 +33,7 @@ internal sealed class PulsarMessagePublisher : IMessagePublisher
         _producerName = Assembly.GetEntryAssembly()?.FullName?.Split(",")[0].ToLowerInvariant() ?? string.Empty;
     }
     
-    public async Task PublishAsync<T>(string topic, T message) where T : class, IMessage
+    public async Task PublishAsync<T>(string topic, T message) where T : class, INotification
     {
         var producer = _producers.GetOrAdd(topic, _client.NewProducer()
             .ProducerName(_producerName)

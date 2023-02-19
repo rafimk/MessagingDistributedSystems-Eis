@@ -3,6 +3,7 @@ using System.Text.Json;
 using EIS.Shared.Accessors;
 using EIS.Shared.Messaging;
 using EIS.Shared.RabbitMQ.Connections;
+using MediatR;
 using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
 
@@ -18,7 +19,7 @@ public class RabbitMqMessageSubscriber : IMessageSubscriber
         _channel = channelFactory.Create();
         _messageIdAccessor = messageIdAccessor;
     }
-    public async Task SubscribeAsync<T>(string topic, Action<MessageEnvelope<T>> handler) where T : class, IMessage
+    public async Task SubscribeAsync<T>(string topic, Action<MessageEnvelope<T>> handler) where T : class, INotification
     {
         var queue = $"{topic}-queue";
         var routingKey = "#";

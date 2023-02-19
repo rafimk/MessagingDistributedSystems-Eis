@@ -4,8 +4,8 @@ using DotPulsar.Abstractions;
 using DotPulsar.Extensions;
 using EIS.Shared.Messaging;
 using EIS.Shared.Serialization;
+using MediatR;
 using Microsoft.Extensions.Logging;
-using IMessage = EIS.Shared.Messaging.IMessage;
 
 namespace EIS.Shared.Pulsar;
 
@@ -24,7 +24,7 @@ internal sealed class PulsarMessageSubscriber : IMessageSubscriber
         _consumerName = Assembly.GetEntryAssembly()?.FullName?.Split(",")[0].ToLowerInvariant() ?? string.Empty;
     }
     
-    public async Task SubscribeAsync<T>(string topic, Action<MessageEnvelope<T>> handler) where T : class, IMessage
+    public async Task SubscribeAsync<T>(string topic, Action<MessageEnvelope<T>> handler) where T : class, INotification
     {
         var subscription = $"{_consumerName}_{topic}";
         var consumer = _client.NewConsumer()

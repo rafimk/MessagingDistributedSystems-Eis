@@ -1,3 +1,5 @@
-﻿namespace EIS.Shared.Messaging;
+﻿using MediatR;
 
-public record MessageEnvelope<T>(T Message, string CorrelationId) where T : IMessage;
+namespace EIS.Shared.Messaging;
+
+public record MessageEnvelope<T>(T Message, string CorrelationId) where T : INotification;

@@ -1,15 +1,11 @@
-﻿using System.Buffers;
-using System.Collections.Concurrent;
-using System.Reflection;
-using DotPulsar.Abstractions;
+﻿using System.Reflection;
 using EIS.Shared.Messaging;
-using EIS.Shared.Pulsar;
 using EIS.Shared.RabbitMQ.Connections;
 using EIS.Shared.Serialization;
+using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 using RabbitMQ.Client;
-using IMessage = EIS.Shared.Messaging.IMessage;
 
 namespace EIS.Shared.RabbitMQ;
 
@@ -32,7 +28,7 @@ public class RabbitMqMessagePublisher : IMessagePublisher
         _producerName = Assembly.GetEntryAssembly()?.FullName?.Split(",")[0].ToLowerInvariant() ?? string.Empty;
         
     }
-    public async Task PublishAsync<T>(string topic, T message) where T : class, IMessage
+    public async Task PublishAsync<T>(string topic, T message) where T : class, INotification
     {
         var payload = _serializer.SerializeBytes(message);
         var routingKey = _producerName;

@@ -9,19 +9,19 @@ using RabbitMQ.Client;
 
 namespace EIS.Shared.RabbitMQ;
 
-public class RabbitMqMessagePublisher : IMessagePublisher
+public class MessagePublisher : IMessagePublisher
 { 
     private readonly ISerializer _serializer;
     private readonly IHttpContextAccessor _contextAccessor;
-    private readonly ILogger<RabbitMqMessagePublisher> _logger;
+    private readonly ILogger<MessagePublisher> _logger;
     private readonly IModel _channel;
     private readonly string _producerName;
 
-    public RabbitMqMessagePublisher(IChannelFactory channelFactory, 
+    public MessagePublisher(IRabbitMqChannelFactory rabbitMqChannelFactory, 
         ISerializer serializer, IHttpContextAccessor contextAccessor,
-        ILogger<RabbitMqMessagePublisher> logger)
+        ILogger<MessagePublisher> logger)
     {
-        _channel = channelFactory.Create();
+        _channel = rabbitMqChannelFactory.Create();
         _serializer = serializer;
         _contextAccessor = contextAccessor;
         _logger = logger;

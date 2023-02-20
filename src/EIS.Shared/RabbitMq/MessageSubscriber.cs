@@ -14,9 +14,9 @@ public class RabbitMqMessageSubscriber : IMessageSubscriber
     private readonly IMessageIdAccessor _messageIdAccessor;
     private readonly IModel _channel;
 
-    public RabbitMqMessageSubscriber(IChannelFactory channelFactory, IMessageIdAccessor messageIdAccessor)
+    public RabbitMqMessageSubscriber(IRabbitMqChannelFactory rabbitMqChannelFactory, IMessageIdAccessor messageIdAccessor)
     {
-        _channel = channelFactory.Create();
+        _channel = rabbitMqChannelFactory.Create();
         _messageIdAccessor = messageIdAccessor;
     }
     public async Task SubscribeAsync<T>(string topic, Action<MessageEnvelope<T>> handler) where T : class, INotification

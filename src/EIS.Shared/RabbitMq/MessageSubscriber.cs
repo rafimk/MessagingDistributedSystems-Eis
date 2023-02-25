@@ -9,12 +9,12 @@ using RabbitMQ.Client.Events;
 
 namespace EIS.Shared.RabbitMQ;
 
-public class RabbitMqMessageSubscriber : IMessageSubscriber
+public class MessageSubscriber : IMessageSubscriber
 {
     private readonly IMessageIdAccessor _messageIdAccessor;
     private readonly IModel _channel;
 
-    public RabbitMqMessageSubscriber(IRabbitMqChannelFactory rabbitMqChannelFactory, IMessageIdAccessor messageIdAccessor)
+    public MessageSubscriber(IRabbitMqChannelFactory rabbitMqChannelFactory, IMessageIdAccessor messageIdAccessor)
     {
         _channel = rabbitMqChannelFactory.Create();
         _messageIdAccessor = messageIdAccessor;
@@ -33,6 +33,7 @@ public class RabbitMqMessageSubscriber : IMessageSubscriber
         consumer.Received += async (model, ea) =>
         {
             var body = ea.Body.ToArray();
+            
             var payload = JsonSerializer.Deserialize<T>(Encoding.UTF8.GetString(body));
 
             _messageIdAccessor.SetMessageId(ea.BasicProperties.MessageId);

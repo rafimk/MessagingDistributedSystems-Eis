@@ -2,7 +2,7 @@
 
 namespace EIS.Shared.RabbitMQ.Connections;
 
-public interface IChannelFactory
+public interface IRabbitMqChannelFactory
 {
     IModel Create();
 }

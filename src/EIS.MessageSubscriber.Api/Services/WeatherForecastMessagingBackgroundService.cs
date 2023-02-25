@@ -20,7 +20,7 @@ public sealed class WeatherForecastMessagingBackgroundService: BackgroundService
         _messageSubscriber.SubscribeAsync<WeatherForecastCreated>("weather-new", messageEnvelope =>
         {
             var correlationId = messageEnvelope.CorrelationId;
-            _logger.LogInformation($"Weather with ID: '' has been placed. " +
+            _logger.LogInformation($"Weather with ID: '{messageEnvelope.Message.WeatherId}' has been placed. " +
                                    $"Correlation ID: '{correlationId}'.");
         });
         

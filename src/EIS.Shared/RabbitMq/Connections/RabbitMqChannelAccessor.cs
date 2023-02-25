@@ -2,7 +2,7 @@
 
 namespace EIS.Shared.RabbitMQ.Connections;
 
-internal sealed class ChannelAccessor
+internal sealed class RabbitMqChannelAccessor
 {
     private static readonly ThreadLocal<ChannelHolder> Holder = new() ;
 

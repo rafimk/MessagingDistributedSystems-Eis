@@ -14,10 +14,10 @@ public static class Extensions
         var connection = factory.CreateConnection();
 
         services.AddSingleton(connection);
-        services.AddSingleton<ChannelAccessor>();
-        services.AddSingleton<IChannelFactory, ChannelFactory>();
-        services.AddSingleton<IMessagePublisher, RabbitMqMessagePublisher>();
-        services.AddSingleton<IMessageSubscriber, RabbitMqMessageSubscriber>();
+        services.AddSingleton<RabbitMqChannelAccessor>();
+        services.AddSingleton<IRabbitMqChannelFactory, RabbitMqChannelFactory>();
+        services.AddSingleton<IMessagePublisher, MessagePublisher>();
+        services.AddSingleton<IMessageSubscriber, MessageSubscriber>();
         services.AddSingleton<IMessageIdAccessor, MessageIdAccessor>();
         
         configure?.Invoke(new MessagingConfiguration(services));

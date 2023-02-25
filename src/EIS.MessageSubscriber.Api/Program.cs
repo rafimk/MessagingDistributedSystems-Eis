@@ -1,8 +1,7 @@
 using EIS.MessageSubscriber.Api.Services;
+using EIS.Shared.ActiveMQ;
 using EIS.Shared.Messaging;
 using EIS.Shared.Observability;
-using EIS.Shared.Pulsar;
-using EIS.Shared.RabbitMQ;
 using EIS.Shared.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -13,7 +12,7 @@ builder.Services
     .AddHttpContextAccessor()
     .AddSerialization()
     .AddMessaging()
-    .AddRabbit()
+    .AddActiveMQ()
     .AddHostedService<WeatherForecastMessagingBackgroundService>()
     .AddControllers();
 

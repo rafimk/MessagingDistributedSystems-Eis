@@ -2,17 +2,17 @@
 
 namespace EIS.Shared.RabbitMQ.Connections;
 
-internal sealed class ChannelFactory : IChannelFactory
+internal sealed class RabbitMqChannelFactory : IRabbitMqChannelFactory
 {
     private readonly IConnection _connection;
-    private readonly ChannelAccessor _channelAccessor;
+    private readonly RabbitMqChannelAccessor _rabbitMqChannelAccessor;
 
-    public ChannelFactory(IConnection connection, ChannelAccessor channelAccessor)
+    public RabbitMqChannelFactory(IConnection connection, RabbitMqChannelAccessor rabbitMqChannelAccessor)
     {
         _connection = connection;
-        _channelAccessor = channelAccessor;
+        _rabbitMqChannelAccessor = rabbitMqChannelAccessor;
     }
 
     public IModel Create()
-        => _channelAccessor.Channel ?? (_channelAccessor.Channel = _connection.CreateModel());
+        => _rabbitMqChannelAccessor.Channel ?? (_rabbitMqChannelAccessor.Channel = _connection.CreateModel());
 }

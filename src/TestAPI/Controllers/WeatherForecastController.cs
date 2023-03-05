@@ -1,7 +1,7 @@
-using EIS.MessageSubscriber.Api.Domain;
 using Microsoft.AspNetCore.Mvc;
+using TestAPI.Domain;
 
-namespace EIS.MessageSubscriber.Api.Controllers;
+namespace TestAPI.Controllers;
 
 [ApiController]
 [Route("[controller]")]

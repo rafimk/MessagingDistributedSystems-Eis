@@ -38,6 +38,9 @@ public class MessageSubscriber : IMessageSubscriber
             AutoCreateAddress = true,
             Durable = true,
         });
+
+        await topologyManager.DisposeAsync();
+        
         await using var consumer = await _channel.CreateConsumerAsync(address: topic, queue: queue);
 
         while (!stoppingToken.IsCancellationRequested)
